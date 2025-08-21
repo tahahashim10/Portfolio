@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, Play } from 'lucide-react';
 
 import convoImage from '@/assets/convo-ai.jpg';
 import escapeImage from '@/assets/escape-room.jpg';
@@ -64,7 +64,7 @@ const projects = [
     title: 'Convo AI',
     description: 'Chat app with conversational UI and session management.',
     image: convoImage,
-    technologies: ['React', 'Vite', 'TypeScript', 'Express.js', 'MongoDB', 'OpenAI API'],
+    technologies: ['React', 'Node.js', 'TypeScript', 'Express.js', 'MongoDB', 'OpenAI API', 'Vite'],
     githubUrl: 'https://github.com/tahahashim10/Convo-AI',
     featured: false
   }
@@ -139,7 +139,7 @@ export function Projects() {
                           onClick={() => window.open(project.videoUrl, '_blank')}
                           className="border-primary/20 hover:border-primary/40 hover:bg-primary/10 transition-all"
                         >
-                          <ExternalLink className="mr-2 h-4 w-4" />
+                          <Play className="mr-2 h-4 w-4" />
                           Video
                         </Button>
                       )}
@@ -204,8 +204,8 @@ export function Projects() {
                           onClick={() => window.open(project.liveUrl, '_blank')}
                           className="flex-1 border-primary/20 hover:border-primary/40 hover:bg-primary/10 transition-all"
                         >
-                          <ExternalLink className="mr-2 h-3 w-3" />
-                          Demo
+                          <Play className="mr-2 h-3 w-3" />
+                          Video
                         </Button>
                       )}
                       {project.videoUrl && (
@@ -215,7 +215,7 @@ export function Projects() {
                           onClick={() => window.open(project.videoUrl, '_blank')}
                           className="flex-1 border-primary/20 hover:border-primary/40 hover:bg-primary/10 transition-all"
                         >
-                          <ExternalLink className="mr-2 h-3 w-3" />
+                          <Play className="mr-2 h-3 w-3" />
                           Video
                         </Button>
                       )}

@@ -40,7 +40,7 @@ const experiences = [
   },
   {
     title: 'Software Engineer Intern',
-    company: 'Akhny Solutions',
+    company: 'Akhny Solutions Inc.',
     location: 'Toronto, ON',
     period: 'May 2023 – Aug 2023',
     description:
