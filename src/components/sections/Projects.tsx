@@ -18,7 +18,7 @@ const projects = [
     description:
       'Travel booking app with hotel/flight reservations, secure auth, and role-based access control.',
     image: flyNextImage,
-    technologies: ['Next.js', 'PostgreSQL', 'Prisma', 'TypeScript', 'Tailwind'],
+    technologies: ['Next.js', 'PostgreSQL', 'Prisma', 'TypeScript', 'Tailwind', 'Docker'],
     liveUrl: 'https://flynext-deploy-v4st-tahahashim10s-projects.vercel.app/',
     githubUrl: 'https://github.com/tahahashim10/FlyNext',
     featured: true

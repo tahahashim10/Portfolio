@@ -22,12 +22,12 @@ export function About() {
           <div className="grid md:grid-cols-3 gap-8 items-start mb-16">
             <div className="md:col-span-1 text-center">
               <div className="relative inline-block mb-6">
+                <div className="absolute inset-0 rounded-full bg-gradient-primary opacity-20 -z-10" />
                 <img
                   src={headshotImage}
                   alt="Taha Hashim"
-                  className="w-48 h-48 rounded-full object-cover shadow-glow mx-auto"
+                  className="w-48 h-48 rounded-full object-cover shadow-glow mx-auto relative z-10"
                 />
-                <div className="absolute inset-0 rounded-full bg-gradient-primary opacity-20" />
               </div>
             </div>
             

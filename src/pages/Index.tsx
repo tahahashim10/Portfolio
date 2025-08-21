@@ -24,7 +24,7 @@ const Index = () => {
       <footer className="py-8 text-center text-muted-foreground border-t border-primary/10">
         <div className="container mx-auto px-6">
           <p className="text-sm">
-            © 2024 Taha Hashim. Built with React, TypeScript & Tailwind CSS.
+            © 2025 Taha Hashim. Built with React, TypeScript & Tailwind CSS.
           </p>
         </div>
       </footer>
