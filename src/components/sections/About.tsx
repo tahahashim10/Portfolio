@@ -2,11 +2,11 @@ import { Button } from '@/components/ui/button';
 import { FileDown } from 'lucide-react';
 import headshotImage from '@/assets/headshot.jpg';
 import { TechStack } from '@/components/TechStack';
+import resumePdf from '@/assets/Taha_Resume.pdf';
 
 export function About() {
   const handleResumeDownload = () => {
-    // TODOResume download logic
-    console.log('Download resume');
+    window.open(resumePdf, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -33,17 +33,17 @@ export function About() {
             
             <div className="md:col-span-2 space-y-6">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+                I’m Taha Hashim, a Computer Science & Math student at the University of Toronto focused on software engineering.
               </p>
               
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. At praesentium nobis quasi. Blanditiis ut cupiditate maiores nemo beatae sit a est libero saepe, soluta illo. Nostrum in fugiat esse? Maxime!
+                At AWS, I contributed to large-scale monitoring systems that impacted millions of customers, and at Acadia University I developed a platform that streamlined workflows for hundreds of users.
               </p>
               
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque soluta labore, minus deserunt quia aut tenetur tempore aliquam rem nostrum, veniam molestiae! Beatae autem corporis laboriosam earum temporibus laborum impedit!
+                I’m driven by building reliable systems and creating simple, effective user experiences.
               </p>
-              
+
               <Button
                 onClick={handleResumeDownload}
                 className="bg-primary hover:bg-primary/90 shadow-glow hover:shadow-card transition-all group"
@@ -52,6 +52,7 @@ export function About() {
                 Download Resume
               </Button>
             </div>
+
           </div>
           
           <TechStack />

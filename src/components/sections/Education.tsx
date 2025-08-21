@@ -25,23 +25,22 @@ export function Education() {
                   Bachelor of Science in Computer Science
                 </h3>
                 <p className="text-xl text-primary mb-3">
-                  University of Toronto Mississauga
+                  University of Toronto
                 </p>
                 
                 <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-6 mb-4">
                   <div className="flex items-center text-muted-foreground">
                     <Calendar className="h-4 w-4 mr-2" />
-                    Expected 2026/2027
+                    Expected 2026
                   </div>
                   <div className="flex items-center text-muted-foreground">
                     <MapPin className="h-4 w-4 mr-2" />
-                    Mississauga, ON
+                    Toronto, ON
                   </div>
                 </div>
                 
                 <p className="text-muted-foreground leading-relaxed">
-                  Focused on systems programming, web technologies, and data structures. 
-                  Gaining deep expertise in software design patterns, algorithms, and modern development practices.
+                Focused on software engineering and web technologies. Strong foundation in algorithms, data structures, database design, testing, and information security.
                 </p>
               </div>
             </div>
