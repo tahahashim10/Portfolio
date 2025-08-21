@@ -4,100 +4,41 @@ import { Button } from '@/components/ui/button';
 
 const techStacks = {
   frontend: [
-    { 
-      name: 'JavaScript', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
-      color: '#F7DF1E'
-    },
-    { 
-      name: 'React', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
-      color: '#61DAFB'
-    },
-    { 
-      name: 'Next.js', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
-      color: '#000000'
-    },
-    { 
-      name: 'TypeScript', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
-      color: '#3178C6'
-    },
-    { 
-      name: 'Tailwind CSS', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg',
-      color: '#06B6D4'
-    },
-    { 
-      name: 'HTML5', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
-      color: '#E34F26'
-    }
+    { name: 'HTML', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', color: '#E34F26' },
+    { name: 'CSS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', color: '#1572B6' },
+    { name: 'Tailwind CSS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg', color: '#06B6D4' },
+    { name: 'JavaScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', color: '#F7DF1E' },
+    { name: 'TypeScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', color: '#3178C6' },
+    { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', color: '#61DAFB' },
+    { name: 'Next.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', color: '#000000' },
   ],
   backend: [
-    { 
-      name: 'Node.js', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
-      color: '#339933'
-    },
-    { 
-      name: 'Python', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
-      color: '#3776AB'
-    },
-    { 
-      name: 'PostgreSQL', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
-      color: '#336791'
-    },
-    { 
-      name: 'MongoDB', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
-      color: '#47A248'
-    },
-    { 
-      name: 'Express.js', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg',
-      color: '#000000'
-    },
-    { 
-      name: 'Prisma', 
-      logo: 'https://www.prisma.io/images/favicon-32x32.png',
-      color: '#2D3748'
-    }
-  ],
+    { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: '#3776AB' },
+    { name: 'Java', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg', color: '#007396' },
+    { name: 'C', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg', color: '#A8B9CC' },
+    { name: 'C#', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg', color: '#239120' },
+    { name: 'Node.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', color: '#339933' },
+    { name: 'Express.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg', color: '#000000' },
+    { name: 'ASP.NET', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg', color: '#512BD4' },
+    { name: 'Next.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', color: '#000000' }, 
+    { name: 'PostgreSQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', color: '#336791' },
+    { name: 'MongoDB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', color: '#47A248' },
+    { name: 'Microsoft SQL Server', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-line.svg', color: '#CC2927'},
+    { name: 'AWS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg', color: '#FF9900' },
+    { name: 'RESTful API Design', logo: 'https://cdn-icons-png.flaticon.com/512/103/103093.png', color: '#2D3748' },
+  ],  
   tools: [
-    { 
-      name: 'Git', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
-      color: '#F05032'
-    },
-    { 
-      name: 'Docker', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
-      color: '#2496ED'
-    },
-    { 
-      name: 'AWS', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg',
-      color: '#FF9900'
-    },
-    { 
-      name: 'Jenkins', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg',
-      color: '#D24939'
-    },
-    { 
-      name: 'VS Code', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg',
-      color: '#007ACC'
-    },
-    { 
-      name: 'Jest', 
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg',
-      color: '#C21325'
-    }
+    { name: 'Git', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', color: '#F05032' },
+    { name: 'GitHub', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', color: '#181717' },
+    { name: 'GitLab', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg', color: '#FCA121' }, 
+    { name: 'VS Code', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg', color: '#007ACC' },
+    { name: 'PyCharm', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg', color: '#000000' },
+    { name: 'Postman', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg', color: '#FF6C37' },
+    { name: 'Vercel', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg', color: '#000000' },
+    { name: 'Supabase', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg', color: '#3ECF8E' },
+    { name: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', color: '#2496ED' },
+    { name: 'Kubernetes', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg', color: '#326CE5' },
+    { name: 'Selenium', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg', color: '#43B02A' },
   ]
 };
 
@@ -109,16 +50,15 @@ export function TechStack() {
   const categories = [
     { id: 'frontend' as TechCategory, label: 'Frontend', count: techStacks.frontend.length },
     { id: 'backend' as TechCategory, label: 'Backend', count: techStacks.backend.length },
-    { id: 'tools' as TechCategory, label: 'Tools', count: techStacks.tools.length }
+    { id: 'tools' as TechCategory, label: 'Tools & Technologies', count: techStacks.tools.length }
   ];
 
   return (
     <div className="space-y-8">
       <h3 className="text-2xl font-semibold text-center">
-        Tools & Technologies
+        Technologies I Use
       </h3>
       
-      {/* Category Tabs */}
       <div className="flex justify-center">
         <div className="glass rounded-full p-1 inline-flex space-x-1">
           {categories.map((category) => (
@@ -142,7 +82,6 @@ export function TechStack() {
         </div>
       </div>
 
-      {/* Tech Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
         {techStacks[activeCategory].map((tech, index) => (
           <Card
@@ -156,11 +95,8 @@ export function TechStack() {
                   src={tech.logo}
                   alt={`${tech.name} logo`}
                   className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
-                  style={{ 
-                    filter: 'brightness(0.9)',
-                  }}
+                  style={{ filter: 'brightness(0.9)' }}
                   onError={(e) => {
-                    // Fallback for broken images
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
                     const parent = target.parentElement;
@@ -178,17 +114,16 @@ export function TechStack() {
         ))}
       </div>
 
-      {/* Category Description */}
       <div className="text-center max-w-2xl mx-auto">
         <p className="text-muted-foreground">
-          {activeCategory === 'frontend' && 
-            "Building responsive and interactive user interfaces with modern frameworks and libraries."
+          {activeCategory === 'frontend' &&
+            "Building responsive and interactive user interfaces with modern frameworks and styling tools."
           }
-          {activeCategory === 'backend' && 
-            "Developing robust server-side applications, APIs, and database solutions."
+          {activeCategory === 'backend' &&
+            "Developing robust server-side systems, APIs, databases, and cloud services."
           }
-          {activeCategory === 'tools' && 
-            "Essential development tools for version control, deployment, and productivity."
+          {activeCategory === 'tools' &&
+            "Utilizing essential development, deployment, and collaboration tools."
           }
         </p>
       </div>
