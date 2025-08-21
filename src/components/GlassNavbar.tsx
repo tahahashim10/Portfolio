@@ -20,6 +20,21 @@ export function GlassNavbar() {
   const [activeSection, setActiveSection] = useState('hero');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Pretty labels for page title
+  const sectionToTitle: Record<string, string> = {
+    hero: 'Home',
+    about: 'About',
+    experience: 'Experience',
+    projects: 'Projects',
+    contact: 'Contact',
+  };
+
+  // Dynamically update <title>
+  useEffect(() => {
+    const label = sectionToTitle[activeSection] ?? 'Home';
+    document.title = `${label} | Taha Hashim`;
+  }, [activeSection]);
+
   // Track active section on scroll
   useEffect(() => {
     const handleScroll = () => {
@@ -123,7 +138,6 @@ export function GlassNavbar() {
           </div>
         </div>
       </nav>
-
 
       {/* Mobile (sm) – Top-right glass hamburger + dropdown */}
       <nav className="md:hidden fixed top-4 right-4 z-50">
