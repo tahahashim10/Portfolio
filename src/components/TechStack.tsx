@@ -60,7 +60,7 @@ export function TechStack() {
       </h3>
       
       <div className="flex justify-center">
-        <div className="glass rounded-full p-1 inline-flex space-x-1">
+        <div className="glass rounded-full p-1 inline-flex flex-wrap gap-2 justify-center">
           {categories.map((category) => (
             <Button
               key={category.id}
@@ -81,6 +81,7 @@ export function TechStack() {
           ))}
         </div>
       </div>
+
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
         {techStacks[activeCategory].map((tech, index) => (
