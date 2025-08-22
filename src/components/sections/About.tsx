@@ -2,13 +2,8 @@ import { Button } from '@/components/ui/button';
 import { FileDown } from 'lucide-react';
 import headshotImage from '@/assets/headshot.jpg';
 import { TechStack } from '@/components/TechStack';
-import resumePdf from '@/assets/Taha_Resume.pdf';
 
 export function About() {
-  const handleResumeDownload = () => {
-    window.open(resumePdf, '_blank', 'noopener,noreferrer');
-  };
-
   return (
     <section id="about" className="py-24 relative">
       <div className="absolute inset-0 grid-bg opacity-20" />
@@ -35,26 +30,27 @@ export function About() {
               <p className="text-lg text-muted-foreground leading-relaxed">
                 I’m Taha Hashim, a Computer Science & Math student at the University of Toronto focused on software engineering.
               </p>
-              
               <p className="text-lg text-muted-foreground leading-relaxed">
                 At AWS, I contributed to large-scale monitoring systems that impacted millions of customers, and at Acadia University I developed a platform that streamlined workflows for hundreds of users.
               </p>
-              
               <p className="text-lg text-muted-foreground leading-relaxed">
                 I’m driven by building reliable systems and creating simple, effective user experiences.
               </p>
 
-              <Button
-                onClick={handleResumeDownload}
-                className="bg-primary hover:bg-primary/90 shadow-glow hover:shadow-card transition-all group"
+              <a
+                href="/Taha_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block"
               >
-                <FileDown className="mr-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
-                Download Resume
-              </Button>
+                <Button className="bg-primary hover:bg-primary/90 shadow-glow hover:shadow-card transition-all group">
+                  <FileDown className="mr-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
+                  Download Resume
+                </Button>
+              </a>
             </div>
-
           </div>
-          
+
           <TechStack />
         </div>
       </div>
