@@ -163,7 +163,7 @@ export function Contact() {
                     required
                     rows={6}
                     className="bg-secondary/20 border-primary/20 focus:border-primary/40 resize-none"
-                    placeholder="Tell me about your project or just say hello!"
+                    placeholder="Write your message here..."
                   />
                 </div>
 
