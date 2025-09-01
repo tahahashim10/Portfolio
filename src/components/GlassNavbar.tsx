@@ -38,19 +38,33 @@ export function GlassNavbar() {
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['hero', 'about', 'experience', 'projects', 'contact'];
-      const scrollPos = window.scrollY + 100;
-
-      for (const section of sections) {
+      const scrollPos = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // If were near the bottom of the page always show contact
+      if (scrollPos + windowHeight >= documentHeight - 100) {
+        setActiveSection('contact');
+        return;
+      }
+      
+      let currentSection = 'hero';
+      
+      // Check each section to see which one is most visible
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
         const element = document.getElementById(section);
         if (element) {
-          const offsetTop = element.offsetTop;
-          const height = element.offsetHeight;
-          if (scrollPos >= offsetTop && scrollPos < offsetTop + height) {
-            setActiveSection(section);
+          const rect = element.getBoundingClientRect();
+          // If the section is in the upper half of the viewport its active
+          if (rect.top <= windowHeight / 2) {
+            currentSection = section;
             break;
           }
         }
       }
+      
+      setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
