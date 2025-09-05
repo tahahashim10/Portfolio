@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Github, Linkedin, Mail, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Reveal } from '@/components/Reveal';
 
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY as string;
 if (!WEB3FORMS_KEY) {
@@ -83,14 +84,19 @@ export function Contact() {
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Get in Touch</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Got an idea or just want to say hi? Feel free to reach out, I’d love to connect.
-            </p>
+            <Reveal effect="fade-up">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">Get in Touch</h2>
+            </Reveal>
+            <Reveal effect="fade-up" delay={80}>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Got an idea or just want to say hi? Feel free to reach out, I’d love to connect.
+              </p>
+            </Reveal>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Contact Form */}
+            <Reveal effect="fade-up">
             <Card className="p-8 gradient-card border-primary/10">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Honeypot (hidden) */}
@@ -183,42 +189,48 @@ export function Contact() {
                 </Button>
               </form>
             </Card>
+            </Reveal>
 
             {/* Contact Information */}
             <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-semibold mb-6">Let's Connect</h3>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                  Open to collaborations, opportunities, or just a quick chat. Reach out anytime through the channels below.
-                </p>
-              </div>
+              <Reveal effect="fade-up">
+                <div>
+                  <h3 className="text-2xl font-semibold mb-6">Let's Connect</h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                    Open to collaborations, opportunities, or just a quick chat. Reach out anytime through the channels below.
+                  </p>
+                </div>
+              </Reveal>
 
               <div className="space-y-4">
-                {contactLinks.map((link) => (
-                  <Card
-                    key={link.name}
-                    className="p-6 gradient-card border-primary/10 card-hover cursor-pointer group"
-                    onClick={() => window.open(link.href, '_blank')}
-                  >
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center group-hover:bg-primary/30 transition-colors">
-                        <link.icon className="h-6 w-6 text-primary" />
+                {contactLinks.map((link, i) => (
+                  <Reveal key={link.name} effect="fade-up" delay={i * 80}>
+                    <Card
+                      className="p-6 gradient-card border-primary/10 card-hover cursor-pointer group"
+                      onClick={() => window.open(link.href, '_blank')}
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center group-hover:bg-primary/30 transition-colors">
+                          <link.icon className="h-6 w-6 text-primary" />
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-lg">{link.name}</h4>
+                          <p className="text-muted-foreground">{link.label}</p>
+                        </div>
                       </div>
-                      <div>
-                        <h4 className="font-medium text-lg">{link.name}</h4>
-                        <p className="text-muted-foreground">{link.label}</p>
-                      </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </Reveal>
                 ))}
               </div>
 
-              <div className="p-6 gradient-card rounded-lg border border-primary/10">
-                <h4 className="font-medium mb-2 text-primary">Response Time</h4>
-                <p className="text-muted-foreground text-sm">
-                  I’m quick with email replies (most within a day), so that’s the best way to reach me.
-                </p>
-              </div>
+              <Reveal effect="fade-up" delay={200}>
+                <div className="p-6 gradient-card rounded-lg border border-primary/10">
+                  <h4 className="font-medium mb-2 text-primary">Response Time</h4>
+                  <p className="text-muted-foreground text-sm">
+                    I’m quick with email replies (most within a day), so that’s the best way to reach me.
+                  </p>
+                </div>
+              </Reveal>
             </div>
           </div>
         </div>

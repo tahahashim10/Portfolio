@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Github,
   Linkedin,
@@ -18,6 +18,9 @@ import { ThemeToggle } from './ThemeToggle';
 export function GlassNavbar() {
   const [activeSection, setActiveSection] = useState('hero');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [dockHover, setDockHover] = useState<number | null>(null);
+  const dockRef = useRef<HTMLDivElement | null>(null);
 
   // Pretty labels for page title
   const sectionToTitle: Record<string, string> = {
@@ -37,6 +40,7 @@ export function GlassNavbar() {
   // Track active section on scroll
   useEffect(() => {
     const handleScroll = () => {
+      setScrolled(window.scrollY > 8);
       const sections = ['hero', 'about', 'experience', 'projects', 'contact'];
       const scrollPos = window.scrollY;
       const windowHeight = window.innerHeight;
@@ -72,6 +76,31 @@ export function GlassNavbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleDockMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = dockRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const fraction = x / rect.width; // 0..1
+    const total = navigationItems.length + externalItems.length + 1; // theme
+    const idx = fraction * (total - 1);
+    setDockHover(Math.max(0, Math.min(total - 1, idx)));
+  };
+
+  const handleDockLeave = () => setDockHover(null);
+
+  const scaleForIndex = (i: number) => {
+    if (dockHover === null) return 1;
+    const d = Math.abs(i - dockHover);
+    return 1 + Math.max(0, 0.65 - d * 0.28);
+  };
+
+  const dockStyle = (i: number): React.CSSProperties => {
+    const s = scaleForIndex(i);
+    const lift = (s - 1) * 14;
+    return { transform: `translateY(-${lift}px) scale(${s})`, zIndex: Math.round(s * 100) };
+  };
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
@@ -97,11 +126,13 @@ export function GlassNavbar() {
     <>
       {/* Desktop / Tablet (md+) – Bottom glass bar */}
       <nav className="hidden md:block fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
-        <div className="glass rounded-full px-6 py-3 shadow-glass backdrop-blur-xl bg-white/10 dark:bg-black/20 border border-white/20 dark:border-white/10">
-          <div className="flex items-center space-x-2">
+        <div className={`glass rounded-full px-6 py-3 backdrop-blur-xl border transition-all duration-300 ease-smooth ${
+          scrolled ? 'bg-white/20 dark:bg-black/30 shadow-glow border-white/20 dark:border-white/10' : 'bg-white/10 dark:bg-black/20 shadow-glass border-white/10 dark:border-white/5'
+        }`}>
+          <div ref={dockRef} className="dock-container flex items-center space-x-2" onMouseMove={handleDockMouseMove} onMouseLeave={handleDockLeave}>
             {/* Navigation Items */}
-            {navigationItems.map((item) => (
-              <div key={item.id} className="relative group flex flex-col items-center">
+            {navigationItems.map((item, idx) => (
+              <div key={item.id} className="dock-item relative group flex flex-col items-center" style={dockStyle(idx)}>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -111,7 +142,7 @@ export function GlassNavbar() {
                   }`}
                   aria-label={item.label}
                 >
-                  <item.icon className="h-4 w-4" />
+                  <item.icon className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
                 </Button>
                 <span className="absolute -top-7 text-xs bg-black/70 text-white px-2 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition">
                   {item.label}
@@ -123,7 +154,7 @@ export function GlassNavbar() {
 
             {/* External Links */}
             {externalItems.map((item, index) => (
-              <div key={index} className="relative group flex flex-col items-center">
+              <div key={index} className="dock-item relative group flex flex-col items-center" style={dockStyle(navigationItems.length + index)}>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -131,7 +162,7 @@ export function GlassNavbar() {
                   className="w-10 h-10 rounded-full transition-all hover:shadow-glow hover:bg-secondary/20"
                   aria-label={item.label}
                 >
-                  <item.icon className="h-4 w-4" />
+                  <item.icon className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
                 </Button>
                 <span className="absolute -top-7 text-xs bg-black/70 text-white px-2 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition">
                   {item.label}
@@ -142,7 +173,7 @@ export function GlassNavbar() {
             <div className="w-px h-6 bg-border mx-2" />
 
             {/* Theme toggle with label */}
-            <div className="relative group flex flex-col items-center">
+            <div className="dock-item relative group flex flex-col items-center" style={dockStyle(navigationItems.length + externalItems.length)}>
               <ThemeToggle />
               <span className="absolute -top-7 text-xs bg-black/70 text-white px-2 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition">
                 Theme

@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Reveal } from '@/components/Reveal';
 import { ExternalLink, Github, Play } from 'lucide-react';
 
 import convoImage from '@/assets/convo-ai.jpg';
@@ -81,30 +82,70 @@ const projects = [
 ];
 
 export function Projects() {
+  const handleCardMouseMove = (e: any) => {
+    const card = e.currentTarget as HTMLDivElement;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--px', `${x}px`);
+    card.style.setProperty('--py', `${y}px`);
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+    const rx = ((y - cy) / rect.height) * -6;
+    const ry = ((x - cx) / rect.width) * 6;
+    const tilt = card.querySelector('.tilt') as HTMLElement | null;
+    if (tilt) tilt.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+  };
+
+  const handleCardEnter = (e: any) => {
+    const card = e.currentTarget as HTMLDivElement;
+    card.classList.add('is-hovered');
+  };
+
+  const handleCardLeave = (e: any) => {
+    const card = e.currentTarget as HTMLDivElement;
+    card.classList.remove('is-hovered');
+    const tilt = card.querySelector('.tilt') as HTMLElement | null;
+    if (tilt) tilt.style.transform = '';
+  };
+
   return (
     <section id="projects" className="py-24 relative">
       <div className="absolute inset-0 bg-gradient-hero" />
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center">
-            Featured Projects
-          </h2>
-          <p className="text-xl text-muted-foreground mb-16 text-center max-w-2xl mx-auto">
-            A showcase of projects highlighting my work in building useful and reliable software.
-          </p>
+          <Reveal effect="fade-up">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center">
+              Featured Projects
+            </h2>
+          </Reveal>
+          <Reveal effect="fade-up" delay={80}>
+            <p className="text-xl text-muted-foreground mb-16 text-center max-w-2xl mx-auto">
+              A showcase of projects highlighting my work in building useful and reliable software.
+            </p>
+          </Reveal>
           
           <div className="grid gap-8 md:gap-12">
             {/* Featured Projects - Larger Cards (FlyNext, SMILE) */}
             <div className="grid md:grid-cols-2 gap-8">
-              {projects.filter(p => p.featured).map((project) => (
-                <Card key={project.title} className="overflow-hidden gradient-card border-primary/10 card-hover group">
-                  <div className="aspect-video overflow-hidden">
+              {projects.filter(p => p.featured).map((project, i) => (
+                <Reveal key={project.title} effect="fade-up" delay={i * 120}>
+                <Card
+                  className="overflow-hidden gradient-card border-primary/10 card-hover group relative project-card"
+                  onMouseMove={handleCardMouseMove}
+                  onMouseEnter={handleCardEnter}
+                  onMouseLeave={handleCardLeave}
+                >
+                  <div className="aspect-video overflow-hidden relative tilt">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-smooth"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="pointer-events-none absolute inset-0 card-spotlight" />
+                    <div className="pointer-events-none card-cursor" />
                   </div>
                   <div className="p-6">
                     <h3 className="text-2xl font-semibold mb-3 text-primary">
@@ -167,19 +208,29 @@ export function Projects() {
                     </div>
                   </div>
                 </Card>
+                </Reveal>
               ))}
             </div>
             
             {/* Other Projects - Smaller Cards (Grocery, Unix Shell, Escape Room, Convo AI) */}
             <div className="grid md:grid-cols-2 gap-6">
-              {projects.filter(p => !p.featured).map((project) => (
-                <Card key={project.title} className="overflow-hidden gradient-card border-primary/10 card-hover group">
-                  <div className="aspect-video overflow-hidden">
+              {projects.filter(p => !p.featured).map((project, i) => (
+                <Reveal key={project.title} effect="fade-up" delay={i * 80}>
+                <Card
+                  className="overflow-hidden gradient-card border-primary/10 card-hover group relative project-card"
+                  onMouseMove={handleCardMouseMove}
+                  onMouseEnter={handleCardEnter}
+                  onMouseLeave={handleCardLeave}
+                >
+                  <div className="aspect-video overflow-hidden relative tilt">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-smooth"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-black/30 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="pointer-events-none absolute inset-0 card-spotlight" />
+                    <div className="pointer-events-none card-cursor" />
                   </div>
                   <div className="p-5">
                     <h3 className="text-xl font-semibold mb-2 text-primary">
@@ -243,6 +294,7 @@ export function Projects() {
                     </div>
                   </div>
                 </Card>
+                </Reveal>
               ))}
             </div>
           </div>

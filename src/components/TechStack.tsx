@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Reveal } from '@/components/Reveal';
 
 const techStacks = {
   frontend: [
@@ -23,7 +24,7 @@ const techStacks = {
     { name: 'Next.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', color: '#000000' }, 
     { name: 'PostgreSQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', color: '#336791' },
     { name: 'MongoDB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', color: '#47A248' },
-    { name: 'Microsoft SQL Server', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-line.svg', color: '#CC2927'},
+    { name: 'MS SQL Server', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-line.svg', color: '#CC2927'},
     { name: 'AWS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg', color: '#FF9900' },
     { name: 'RESTful API Design', logo: 'https://cdn-icons-png.flaticon.com/512/103/103093.png', color: '#2D3748' },
   ],  
@@ -55,12 +56,15 @@ export function TechStack() {
 
   return (
     <div className="space-y-8">
-      <h3 className="text-2xl font-semibold text-center">
-        Technologies I Use
-      </h3>
+      <Reveal effect="fade-up">
+        <h3 className="text-2xl font-semibold text-center">
+          Technologies I Use
+        </h3>
+      </Reveal>
       
       <div className="flex justify-center">
-        <div className="glass rounded-full p-1 inline-flex flex-wrap gap-2 justify-center">
+        <Reveal effect="fade-up" delay={60}>
+          <div className="glass rounded-full p-1 inline-flex flex-wrap gap-2 justify-center">
           {categories.map((category) => (
             <Button
               key={category.id}
@@ -79,18 +83,18 @@ export function TechStack() {
               </span>
             </Button>
           ))}
-        </div>
+          </div>
+        </Reveal>
       </div>
 
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
         {techStacks[activeCategory].map((tech, index) => (
+          <Reveal key={tech.name} effect="fade-up" delay={index * 60}>
           <Card
-            key={tech.name}
             className="p-4 gradient-card border-primary/10 card-hover tech-badge group cursor-pointer text-center"
-            style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <div className="flex flex-col items-center space-y-3">
+            <div className="flex flex-col items-center space-y-3 w-full">
               <div className="w-12 h-12 relative">
                 <img
                   src={tech.logo}
@@ -107,16 +111,18 @@ export function TechStack() {
                   }}
                 />
               </div>
-              <span className="text-sm font-medium text-center leading-tight">
+              <span className="block w-full truncate text-sm font-medium text-center leading-tight">
                 {tech.name}
               </span>
             </div>
           </Card>
+          </Reveal>
         ))}
       </div>
 
       <div className="text-center max-w-2xl mx-auto">
-        <p className="text-muted-foreground">
+        <Reveal effect="fade-up" delay={80}>
+          <p className="text-muted-foreground">
           {activeCategory === 'frontend' &&
             "Building responsive and interactive user interfaces with modern frameworks and styling tools."
           }
@@ -126,7 +132,8 @@ export function TechStack() {
           {activeCategory === 'tools' &&
             "Utilizing essential development, deployment, and collaboration tools."
           }
-        </p>
+          </p>
+        </Reveal>
       </div>
     </div>
   );

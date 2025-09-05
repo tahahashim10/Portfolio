@@ -1,5 +1,6 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Reveal } from '@/components/Reveal';
 
 const experiences = [
   {
@@ -56,7 +57,9 @@ export function Experience() {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">Experience</h2>
+          <Reveal effect="fade-up">
+            <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">Experience</h2>
+          </Reveal>
 
           <div className="relative">
             {/* Vertical Timeline Line */}
@@ -64,7 +67,8 @@ export function Experience() {
 
             <div className="space-y-12">
               {experiences.map((exp, index) => (
-                <div key={`${exp.company}-${exp.period}`} className="relative">
+                <Reveal key={`${exp.company}-${exp.period}`} effect="fade-up" delay={index * 100}>
+                <div className="relative">
                   {/* Timeline Dot */}
                   <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary rounded-full shadow-glow z-10" />
 
@@ -116,6 +120,7 @@ export function Experience() {
                     </Card>
                   </div>
                 </div>
+                </Reveal>
               ))}
             </div>
           </div>

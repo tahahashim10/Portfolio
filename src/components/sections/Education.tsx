@@ -1,5 +1,6 @@
 import { Card } from '@/components/ui/card';
 import { GraduationCap, Calendar, MapPin } from 'lucide-react';
+import { Reveal } from '@/components/Reveal';
 
 export function Education() {
   return (
@@ -8,10 +9,13 @@ export function Education() {
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-            Education
-          </h2>
+          <Reveal effect="fade-up">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+              Education
+            </h2>
+          </Reveal>
           
+          <Reveal effect="fade-up" delay={100}>
           <Card className="p-8 gradient-card border-primary/10 card-hover">
             <div className="flex items-start space-x-4">
               <div className="flex-shrink-0">
@@ -45,6 +49,7 @@ export function Education() {
               </div>
             </div>
           </Card>
+          </Reveal>
         </div>
       </div>
     </section>
