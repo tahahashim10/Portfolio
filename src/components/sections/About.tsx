@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { FileDown } from 'lucide-react';
 import headshotImage from '@/assets/headshot.jpg';
 import { TechStack } from '@/components/TechStack';
 import { Reveal } from '@/components/Reveal';
@@ -44,19 +43,7 @@ export function About() {
                 </p>
               </Reveal>
 
-              <Reveal effect="fade-up" delay={200}>
-                <a
-                  href="/Taha_Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block"
-                >
-                  <Button className="bg-primary hover:bg-primary/90 shadow-glow hover:shadow-card transition-all group">
-                    <FileDown className="mr-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
-                    Download Resume
-                  </Button>
-                </a>
-              </Reveal>
+              {/* Resume download removed as requested */}
             </div>
           </div>
 

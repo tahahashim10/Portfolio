@@ -3,7 +3,6 @@ import {
   Github,
   Linkedin,
   Mail,
-  FileDown,
   Home,
   User,
   Briefcase,
@@ -119,7 +118,6 @@ export function GlassNavbar() {
     { icon: Github, href: 'https://github.com/tahahashim10', label: 'GitHub' },
     { icon: Linkedin, href: 'https://www.linkedin.com/in/tahahashim10/', label: 'LinkedIn' },
     { icon: Mail, href: 'mailto:tahahashim10@gmail.com', label: 'Email' },
-    { icon: FileDown, href: '/Taha_Resume.pdf', label: 'Resume' },
   ];
 
   return (

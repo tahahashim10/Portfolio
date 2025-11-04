@@ -10,7 +10,6 @@ It showcases my projects, experience, and technologies, and includes a contact f
 - Tailwind CSS styling
 - Dark/Light mode toggle
 - Sections for About, Experience, Projects, and Contact
-- Resume download
 - Responsive design for all devices
 
 ## Getting Started
