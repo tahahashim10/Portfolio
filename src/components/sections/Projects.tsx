@@ -31,7 +31,6 @@ const projects = [
       'Full-stack platform digitizing SMILE workflows for 700+ users, cutting weekly admin work by 10+ hours.',
     image: smileImage,
     technologies: ['Next.js', 'PostgreSQL', 'Prisma', 'TypeScript', 'Tailwind'],
-    liveUrl: 'https://project-18-s-m-i-l-e.vercel.app/',
     githubUrl: 'https://github.com/devshah21/smile-repo',
     videoUrl: 'https://drive.google.com/file/d/1h5RkMd7voaG7836mg2hofmVYc7-TeRZa/view',
     featured: true
