@@ -198,7 +198,7 @@ export function Projects() {
                           variant="outline"
                           size="sm"
                           onClick={() => window.open(project.githubUrl, '_blank')}
-                          className="border-primary/20 hover:border-primary/40 hover:bg-primary/10 transition-all"
+                          className="flex-1 border-primary/20 hover:border-primary/40 hover:bg-primary/10 transition-all"
                         >
                           <Github className="mr-2 h-4 w-4" />
                           Code
