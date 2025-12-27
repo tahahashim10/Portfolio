@@ -8,7 +8,7 @@ import convoImage from '@/assets/convo-ai.jpg';
 import escapeImage from '@/assets/escape-room.jpg';
 import flyNextImage from '@/assets/fly-next.jpg';
 import groceryImage from '@/assets/grocery-commerce.jpg';
-import smileImage from '@/assets/smile-manager.jpg';
+import smileImage from '@/assets/smile-app.jpg';
 import unixImage from '@/assets/unix-shell.jpg';
 import portfolioImage from '@/assets/portfolio.jpg';
 
@@ -32,7 +32,7 @@ const projects = [
     image: smileImage,
     technologies: ['Next.js', 'PostgreSQL', 'Prisma', 'TypeScript', 'Tailwind'],
     githubUrl: 'https://github.com/devshah21/smile-repo',
-    videoUrl: 'https://drive.google.com/file/d/1h5RkMd7voaG7836mg2hofmVYc7-TeRZa/view',
+    // videoUrl: 'https://drive.google.com/file/d/1h5RkMd7voaG7836mg2hofmVYc7-TeRZa/view',
     featured: true
   },
   {
