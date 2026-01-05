@@ -4,6 +4,15 @@ import { Reveal } from '@/components/Reveal';
 
 const experiences = [
   {
+    title: 'Teaching Assistant',
+    company: 'University of Toronto',
+    location: 'Toronto, ON',
+    period: 'Jan 2026 – Present',
+    description:
+      'Supporting 160+ students in CSC309 (Full-Stack Web Dev) through project interviews, technical guidance, code reviews, and grading lecture quizzes.',
+    technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
+  },
+  {
     title: 'SDE Intern',
     company: 'Amazon Web Services',
     location: 'Vancouver, BC',
@@ -16,7 +25,7 @@ const experiences = [
     title: 'Software Developer',
     company: 'Acadia University',
     location: 'Wolfville, NS',
-    period: 'Jan 2025 – Apr 2025',
+    period: 'Jan 2025 – Aug 2025',
     description:
       'Created a full-stack web app for the SMILE program, digitizing volunteer workflows for 700+ users and cutting weekly admin time by 10+ hours.',
     technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
