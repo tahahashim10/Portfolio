@@ -9,7 +9,7 @@ const experiences = [
     location: 'Toronto, ON',
     period: 'Jan 2026 – Present',
     description:
-      'Supporting 160+ students in CSC309 (Full-Stack Web Dev) through project interviews, technical guidance, code reviews, and grading lecture quizzes.',
+      'Supporting 160+ students in CSC309 (Full-Stack Web Development) through project interviews, technical guidance, code reviews, and grading lecture quizzes.',
     technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
   },
   {
