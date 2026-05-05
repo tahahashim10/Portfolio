@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -10,9 +11,10 @@ import flyNextImage from '@/assets/fly-next.jpg';
 import groceryImage from '@/assets/grocery-commerce.jpg';
 import smileImage from '@/assets/smile-app.jpg';
 import unixImage from '@/assets/unix-shell.jpg';
-import portfolioImage from '@/assets/portfolio.jpg';
 
 const MAX_TECH_CHIPS = 4;
+const projectActionButtonClass =
+  'flex-1 border-primary/20 text-foreground hover:border-primary/40 hover:bg-primary/10 hover:text-foreground transition-all';
 
 const projects = [
   {
@@ -68,20 +70,11 @@ const projects = [
     technologies: ['React', 'Node.js', 'TypeScript', 'Express.js', 'MongoDB', 'OpenAI API', 'Vite'],
     githubUrl: 'https://github.com/tahahashim10/Convo-AI',
     featured: false
-  },
-  {
-    title: 'Portfolio Website',
-    description: 'My portfolio website that you are currently on.',
-    image: portfolioImage,
-    technologies: ['React', 'TypeScript', 'Vite', 'Tailwind'],
-    liveUrl: 'https://tahahashim.com/',
-    githubUrl: 'https://github.com/tahahashim10/Portfolio',
-    featured: false
   }
 ];
 
 export function Projects() {
-  const handleCardMouseMove = (e: any) => {
+  const handleCardMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget as HTMLDivElement;
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -96,12 +89,12 @@ export function Projects() {
     if (tilt) tilt.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
   };
 
-  const handleCardEnter = (e: any) => {
+  const handleCardEnter = (e: MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget as HTMLDivElement;
     card.classList.add('is-hovered');
   };
 
-  const handleCardLeave = (e: any) => {
+  const handleCardLeave = (e: MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget as HTMLDivElement;
     card.classList.remove('is-hovered');
     const tilt = card.querySelector('.tilt') as HTMLElement | null;
@@ -175,10 +168,11 @@ export function Projects() {
                       {project.liveUrl && (
                         <Button
                           size="sm"
+                          variant="outline"
                           onClick={() => window.open(project.liveUrl, '_blank')}
-                          className="bg-primary hover:bg-primary/90 shadow-glow hover:shadow-card transition-all group/btn"
+                          className={projectActionButtonClass}
                         >
-                          <ExternalLink className="mr-2 h-4 w-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                          <ExternalLink className="mr-2 h-4 w-4" />
                           Live Demo
                         </Button>
                       )}
@@ -187,7 +181,7 @@ export function Projects() {
                           size="sm"
                           variant="outline"
                           onClick={() => window.open(project.videoUrl, '_blank')}
-                          className="border-primary/20 hover:border-primary/40 hover:bg-primary/10 transition-all"
+                          className={projectActionButtonClass}
                         >
                           <Play className="mr-2 h-4 w-4" />
                           Video
@@ -198,7 +192,7 @@ export function Projects() {
                           variant="outline"
                           size="sm"
                           onClick={() => window.open(project.githubUrl, '_blank')}
-                          className="flex-1 border-primary/20 hover:border-primary/40 hover:bg-primary/10 transition-all"
+                          className={projectActionButtonClass}
                         >
                           <Github className="mr-2 h-4 w-4" />
                           Code
@@ -262,7 +256,7 @@ export function Projects() {
                           size="sm"
                           variant="outline"
                           onClick={() => window.open(project.liveUrl, '_blank')}
-                          className="flex-1 border-primary/20 hover:border-primary/40 hover:bg-primary/10 transition-all"
+                          className={projectActionButtonClass}
                         >
                           <ExternalLink className="mr-2 h-3 w-3" />
                           Live Demo
@@ -273,7 +267,7 @@ export function Projects() {
                           size="sm"
                           variant="outline"
                           onClick={() => window.open(project.videoUrl, '_blank')}
-                          className="flex-1 border-primary/20 hover:border-primary/40 hover:bg-primary/10 transition-all"
+                          className={projectActionButtonClass}
                         >
                           <Play className="mr-2 h-3 w-3" />
                           Video
@@ -284,7 +278,7 @@ export function Projects() {
                           size="sm"
                           variant="outline"
                           onClick={() => window.open(project.githubUrl, '_blank')}
-                          className="flex-1 border-primary/20 hover:border-primary/40 hover:bg-primary/10 transition-all"
+                          className={projectActionButtonClass}
                         >
                           <Github className="mr-2 h-3 w-3" />
                           Code
