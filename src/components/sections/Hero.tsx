@@ -49,7 +49,7 @@ export function Hero() {
                 onClick={() => scrollToSection('projects')}
                 variant="outline"
                 size="lg"
-                className="border-primary/20 hover:border-primary/40 hover:bg-primary/10 transition-all"
+                className="border-primary/20 text-foreground hover:border-primary/40 hover:bg-primary/10 hover:text-foreground transition-all"
               >
                 View projects
               </Button>
@@ -58,7 +58,7 @@ export function Hero() {
                 onClick={() => scrollToSection('contact')}
                 variant="ghost"
                 size="lg"
-                className="hover:bg-secondary/20 transition-all"
+                className="text-foreground hover:bg-secondary/20 hover:text-foreground transition-all"
               >
                 Get in touch
               </Button>

@@ -64,8 +64,8 @@ export function TechStack() {
               onClick={() => setActiveCategory(category.id)}
               className={`rounded-full px-4 py-2 transition-all ${
                 activeCategory === category.id 
-                  ? 'bg-primary text-primary-foreground shadow-glow' 
-                  : 'hover:bg-secondary/20'
+                  ? 'bg-primary text-primary-foreground hover:text-primary-foreground shadow-glow' 
+                  : 'text-foreground hover:bg-secondary/20 hover:text-foreground'
               }`}
             >
               {category.label}
