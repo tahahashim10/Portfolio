@@ -41,7 +41,7 @@
     --glass-border: 0 0% 100% / 0.09;  
     --grid-color: 0 0% 100% / 0.07;
     --grid-opacity: 0.62;
-    --grain-opacity: 0.13;
+    --grain-opacity: 0.08;
     --glow-color: 210 90% 63% / 0.14;   
     
     /* Gradients */
@@ -169,8 +169,8 @@
     background-size: 140px 140px;
     background-attachment: fixed;
     opacity: var(--grain-opacity);
-    mix-blend-mode: overlay;
-    filter: contrast(1.45);
+    mix-blend-mode: multiply;
+    filter: contrast(1.25) brightness(0.58);
   }
 
   .light .portfolio-site-grain {
@@ -227,13 +227,13 @@
     border-radius: 9999px;
     background:
       radial-gradient(ellipse at 50% 50%,
-        hsl(0 0% 0% / 0.42) 0%,
-        hsl(0 0% 0% / 0.32) 46%,
-        hsl(0 0% 0% / 0.14) 66%,
+        hsl(0 0% 0% / 0.68) 0%,
+        hsl(0 0% 0% / 0.52) 46%,
+        hsl(0 0% 0% / 0.22) 66%,
         transparent 82%);
     backdrop-filter: blur(1px);
     -webkit-backdrop-filter: blur(1px);
-    opacity: 0.86;
+    opacity: 0.9;
     mask-image: radial-gradient(ellipse at 50% 50%, black 0%, black 54%, transparent 82%);
     -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 0%, black 54%, transparent 82%);
   }
@@ -247,9 +247,9 @@
     border-radius: inherit;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.86' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.62'/%3E%3C/svg%3E");
     background-size: 140px 140px;
-    opacity: 0.13;
-    mix-blend-mode: overlay;
-    filter: contrast(1.7) brightness(0.72);
+    opacity: 0.08;
+    mix-blend-mode: multiply;
+    filter: contrast(1.45) brightness(0.46);
     mask-image: radial-gradient(ellipse at 50% 50%, black 0%, black 54%, transparent 82%);
     -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 0%, black 54%, transparent 82%);
   }
