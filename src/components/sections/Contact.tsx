@@ -60,10 +60,11 @@ export function Contact() {
       } else {
         throw new Error(data.message || 'Failed to send message');
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Please try again later.';
       toast({
         title: 'Something went wrong',
-        description: err?.message || 'Please try again later.',
+        description: message,
         variant: 'destructive'
       });
     } finally {
@@ -79,15 +80,14 @@ export function Contact() {
 
   return (
     <section id="contact" className="py-24 relative">
-      <div className="absolute inset-0 grid-bg opacity-30" />
-
+      <div className="contact-section-grain-field pointer-events-none absolute left-1/2 top-[48%] z-0 h-[62rem] w-[min(96vw,82rem)] -translate-x-1/2 -translate-y-1/2" />
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="relative isolate mb-16 text-center">
             <Reveal effect="fade-up">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">Get in Touch</h2>
             </Reveal>
-            <Reveal effect="fade-up" delay={80}>
+            <Reveal effect="fade-up" delay={60}>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 Got an idea or just want to say hi? Feel free to reach out, I’d love to connect.
               </p>
@@ -204,7 +204,7 @@ export function Contact() {
 
               <div className="space-y-4">
                 {contactLinks.map((link, i) => (
-                  <Reveal key={link.name} effect="fade-up" delay={i * 80}>
+                  <Reveal key={link.name} effect="fade-up" delay={i * 56}>
                     <Card
                       className="p-6 gradient-card border-primary/10 card-hover cursor-pointer group"
                       onClick={() => window.open(link.href, '_blank')}
@@ -223,14 +223,6 @@ export function Contact() {
                 ))}
               </div>
 
-              <Reveal effect="fade-up" delay={200}>
-                <div className="p-6 gradient-card rounded-lg border border-primary/10">
-                  <h4 className="font-medium mb-2 text-primary">Response Time</h4>
-                  <p className="text-muted-foreground text-sm">
-                    I’m quick with email replies (most within a day), so that’s the best way to reach me.
-                  </p>
-                </div>
-              </Reveal>
             </div>
           </div>
         </div>

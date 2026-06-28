@@ -1,6 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 type Effect = 'fade' | 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'zoom' | 'blur';
+type RevealStyle = React.CSSProperties & {
+  '--reveal-delay'?: string;
+  '--reveal-duration'?: string;
+};
 
 type RevealProps = {
   children: React.ReactNode;
@@ -12,6 +16,8 @@ type RevealProps = {
   duration?: number;
   /** Intersection threshold */
   threshold?: number;
+  /** Viewport margin for triggering the reveal */
+  rootMargin?: string;
   /** If true, reveals each direct child with a stagger */
   cascade?: boolean;
   /** Additional delay per child when cascading (ms) */
@@ -25,10 +31,11 @@ export function Reveal({
   children,
   effect = 'fade-up',
   delay = 0,
-  duration = 600,
-  threshold = 0.2,
+  duration = 760,
+  threshold = 0.12,
+  rootMargin = '0px 0px -12% 0px',
   cascade = false,
-  cascadeDelay = 80,
+  cascadeDelay = 64,
   className = '',
   once = true,
 }: RevealProps) {
@@ -50,18 +57,17 @@ export function Reveal({
           }
         });
       },
-      { threshold }
+      { threshold, rootMargin }
     );
 
     io.observe(el);
     return () => io.disconnect();
-  }, [threshold, once]);
+  }, [threshold, rootMargin, once]);
 
-  const styleBase = useMemo<React.CSSProperties>(
+  const styleBase = useMemo<RevealStyle>(
     () => ({
-      // These CSS vars are consumed by the reveal utility classes
-      ['--reveal-delay' as any]: `${delay}ms`,
-      ['--reveal-duration' as any]: `${duration}ms`,
+      '--reveal-delay': `${delay}ms`,
+      '--reveal-duration': `${duration}ms`,
     }),
     [delay, duration]
   );
@@ -69,12 +75,15 @@ export function Reveal({
   if (cascade) {
     const items = React.Children.toArray(children);
     return (
-      <div ref={ref} className={`reveal ${visible ? 'is-visible' : ''} ${className}`} style={styleBase}>
+      <div ref={ref} className={`reveal-cascade ${visible ? 'is-visible' : ''} ${className}`} style={styleBase}>
         {items.map((child, i) => (
           <div
             key={i}
             className={`reveal-item reveal--${effect} ${visible ? 'is-visible' : ''}`}
-            style={{ ['--reveal-delay' as any]: `${delay + i * cascadeDelay}ms`, ['--reveal-duration' as any]: `${duration}ms` }}
+            style={{
+              '--reveal-delay': `${delay + i * cascadeDelay}ms`,
+              '--reveal-duration': `${duration}ms`,
+            } as RevealStyle}
           >
             {child}
           </div>
@@ -95,4 +104,3 @@ export function Reveal({
 }
 
 export default Reveal;
-

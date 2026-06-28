@@ -1,248 +1,279 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { ElementType, ReactNode } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+import type { MotionValue } from 'motion/react';
 import {
+  Briefcase,
+  Code,
   Github,
   Linkedin,
   Mail,
-  Home,
-  User,
-  Briefcase,
-  Code,
   MessageSquare,
-  Menu,
+  Moon,
+  Sun,
+  User,
   X,
+  Menu,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { ThemeToggle } from './ThemeToggle';
+import { useTheme } from './ThemeProvider';
+
+type NavItem = {
+  id: string;
+  icon: ElementType;
+  label: string;
+};
+
+type ExternalItem = {
+  icon: ElementType;
+  href: string;
+  label: string;
+};
+
+type DockButtonProps = {
+  icon?: ElementType;
+  label: string;
+  active?: boolean;
+  onClick: () => void;
+  mouseX: MotionValue<number>;
+  magnification?: number;
+  distance?: number;
+  defaultWidth?: number;
+  children?: ReactNode;
+};
+
+function DockButton({
+  icon: Icon,
+  label,
+  active = false,
+  onClick,
+  mouseX,
+  magnification = 50,
+  distance = 120,
+  defaultWidth = 32,
+  children,
+}: DockButtonProps) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const distanceFromCenter = useTransform(mouseX, (value) => {
+    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: defaultWidth };
+    return value - bounds.x - bounds.width / 2;
+  });
+  const widthSync = useTransform(distanceFromCenter, [-distance, 0, distance], [defaultWidth, magnification, defaultWidth]);
+  const width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ width }}
+      className="dock-nav-item group relative flex aspect-square cursor-pointer items-center justify-center rounded-full"
+    >
+      <button
+        type="button"
+        onClick={onClick}
+        className={`dock-nav-button group focus:outline-none ${
+          active ? 'dock-nav-button-active text-primary' : 'text-foreground/75 hover:text-foreground'
+        }`}
+        aria-label={label}
+        aria-current={active ? 'page' : undefined}
+      >
+        <span className="dock-nav-icon">
+          {children ?? (Icon ? <Icon className="size-full" strokeWidth={2.15} /> : null)}
+        </span>
+      </button>
+      <span className="dock-nav-tooltip pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-950/85 px-2 py-1 text-xs text-white opacity-0 shadow-lg backdrop-blur transition duration-150 group-hover:opacity-100">
+        {label}
+      </span>
+    </motion.div>
+  );
+}
 
 export function GlassNavbar() {
   const [activeSection, setActiveSection] = useState('hero');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [dockHover, setDockHover] = useState<number | null>(null);
-  const dockRef = useRef<HTMLDivElement | null>(null);
+  const mouseX = useMotionValue(Number.POSITIVE_INFINITY);
+  const { theme, setTheme } = useTheme();
 
-  // Pretty labels for page title
-  const sectionToTitle: Record<string, string> = {
-    hero: 'Home',
-    about: 'About',
-    experience: 'Experience',
-    projects: 'Projects',
-    contact: 'Contact',
-  };
+  const navigationItems = useMemo<NavItem[]>(
+    () => [
+      { id: 'about', icon: User, label: 'About' },
+      { id: 'experience', icon: Briefcase, label: 'Experience' },
+      { id: 'projects', icon: Code, label: 'Projects' },
+      { id: 'contact', icon: MessageSquare, label: 'Contact' },
+    ],
+    [],
+  );
 
-  // Dynamically update <title>
+  const externalItems = useMemo<ExternalItem[]>(
+    () => [
+      { icon: Github, href: 'https://github.com/tahahashim10', label: 'GitHub' },
+      { icon: Linkedin, href: 'https://www.linkedin.com/in/tahahashim10/', label: 'LinkedIn' },
+      { icon: Mail, href: 'mailto:tahahashim10@gmail.com', label: 'Email' },
+    ],
+    [],
+  );
+
   useEffect(() => {
-    const label = sectionToTitle[activeSection] ?? 'Home';
-    document.title = `${label} | Taha Hashim`;
+    const sectionToTitle: Record<string, string> = {
+      hero: 'Home',
+      about: 'About',
+      experience: 'Experience',
+      projects: 'Projects',
+      contact: 'Contact',
+    };
+
+    document.title = `${sectionToTitle[activeSection] ?? 'Home'} | Taha Hashim`;
   }, [activeSection]);
 
-  // Track active section on scroll
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 8);
       const sections = ['hero', 'about', 'experience', 'projects', 'contact'];
       const scrollPos = window.scrollY;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
-      
-      // If were near the bottom of the page always show contact
+
       if (scrollPos + windowHeight >= documentHeight - 100) {
         setActiveSection('contact');
         return;
       }
-      
+
       let currentSection = 'hero';
-      
-      // Check each section to see which one is most visible
-      for (let i = sections.length - 1; i >= 0; i--) {
+      for (let i = sections.length - 1; i >= 0; i -= 1) {
         const section = sections[i];
         const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          // If the section is in the upper half of the viewport its active
-          if (rect.top <= windowHeight / 2) {
-            currentSection = section;
-            break;
-          }
+        if (element && element.getBoundingClientRect().top <= windowHeight / 2) {
+          currentSection = section;
+          break;
         }
       }
-      
+
       setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // initialize on mount
+    handleScroll();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleDockMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = dockRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const fraction = x / rect.width; // 0..1
-    const total = navigationItems.length + externalItems.length + 1; // theme
-    const idx = fraction * (total - 1);
-    setDockHover(Math.max(0, Math.min(total - 1, idx)));
-  };
-
-  const handleDockLeave = () => setDockHover(null);
-
-  const scaleForIndex = (i: number) => {
-    if (dockHover === null) return 1;
-    const d = Math.abs(i - dockHover);
-    return 1 + Math.max(0, 0.65 - d * 0.28);
-  };
-
-  const dockStyle = (i: number): React.CSSProperties => {
-    const s = scaleForIndex(i);
-    const lift = (s - 1) * 14;
-    return { transform: `translateY(-${lift}px) scale(${s})`, zIndex: Math.round(s * 100) };
-  };
-
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    element?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
     setIsMobileMenuOpen(false);
   };
 
-  const navigationItems = [
-    { id: 'hero', icon: Home, label: 'Home' },
-    { id: 'about', icon: User, label: 'About' },
-    { id: 'experience', icon: Briefcase, label: 'Experience' },
-    { id: 'projects', icon: Code, label: 'Projects' },
-    { id: 'contact', icon: MessageSquare, label: 'Contact' },
-  ];
+  const openExternal = (href: string) => {
+    window.open(href, '_blank', 'noopener,noreferrer');
+  };
 
-  const externalItems = [
-    { icon: Github, href: 'https://github.com/tahahashim10', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/tahahashim10/', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:tahahashim10@gmail.com', label: 'Email' },
-  ];
+  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
 
   return (
     <>
-      {/* Desktop / Tablet (md+) – Bottom glass bar */}
-      <nav className="hidden md:block fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
-        <div className={`glass rounded-full px-6 py-3 backdrop-blur-xl border transition-all duration-300 ease-smooth ${
-          scrolled ? 'bg-white/20 dark:bg-black/30 shadow-glow border-white/20 dark:border-white/10' : 'bg-white/10 dark:bg-black/20 shadow-glass border-white/10 dark:border-white/5'
-        }`}>
-          <div ref={dockRef} className="dock-container flex items-center space-x-2" onMouseMove={handleDockMouseMove} onMouseLeave={handleDockLeave}>
-            {/* Navigation Items */}
-            {navigationItems.map((item, idx) => (
-              <div key={item.id} className="dock-item relative group flex flex-col items-center" style={dockStyle(idx)}>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => scrollToSection(item.id)}
-                  className={`w-10 h-10 rounded-full transition-all hover:shadow-glow ${
-                    activeSection === item.id ? 'bg-primary text-primary-foreground shadow-glow' : ''
-                  }`}
-                  aria-label={item.label}
-                >
-                  <item.icon className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
-                </Button>
-                <span className="absolute -top-7 text-xs bg-black/70 text-white px-2 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition">
-                  {item.label}
-                </span>
-              </div>
-            ))}
+      <nav className="pointer-events-none fixed inset-x-0 bottom-0 z-50 mx-auto mb-4 hidden h-full max-h-[50px] origin-bottom sm:flex">
+        <div className="fixed inset-x-0 bottom-0 h-16 w-full bg-background/85 backdrop-blur-lg [mask-image:linear-gradient(to_top,black,transparent)]" />
+        <div
+          onMouseMove={(event) => mouseX.set(event.pageX)}
+          onMouseLeave={() => mouseX.set(Number.POSITIVE_INFINITY)}
+          className="dock-nav-shell pointer-events-auto z-50 mx-auto flex min-h-full w-max items-end gap-2 rounded-full border px-2 py-2 backdrop-blur-md"
+        >
+          <DockButton label="Home" active={activeSection === 'hero'} onClick={() => scrollToSection('hero')} mouseX={mouseX}>
+            <span className="text-[13px] font-bold leading-none tracking-normal">T</span>
+          </DockButton>
 
-            <div className="w-px h-6 bg-border mx-2" />
+          {navigationItems.map((item) => (
+            <DockButton
+              key={item.id}
+              icon={item.icon}
+              label={item.label}
+              active={activeSection === item.id}
+              onClick={() => scrollToSection(item.id)}
+              mouseX={mouseX}
+            />
+          ))}
 
-            {/* External Links */}
-            {externalItems.map((item, index) => (
-              <div key={index} className="dock-item relative group flex flex-col items-center" style={dockStyle(navigationItems.length + index)}>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => window.open(item.href, '_blank')}
-                  className="w-10 h-10 rounded-full transition-all hover:shadow-glow hover:bg-secondary/20"
-                  aria-label={item.label}
-                >
-                  <item.icon className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
-                </Button>
-                <span className="absolute -top-7 text-xs bg-black/70 text-white px-2 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition">
-                  {item.label}
-                </span>
-              </div>
-            ))}
+          <div className="mx-1 h-full w-px shrink-0 bg-border" />
 
-            <div className="w-px h-6 bg-border mx-2" />
+          {externalItems.map((item) => (
+            <DockButton
+              key={item.label}
+              icon={item.icon}
+              label={item.label}
+              onClick={() => openExternal(item.href)}
+              mouseX={mouseX}
+            />
+          ))}
 
-            {/* Theme toggle with label */}
-            <div className="dock-item relative group flex flex-col items-center" style={dockStyle(navigationItems.length + externalItems.length)}>
-              <ThemeToggle />
-              <span className="absolute -top-7 text-xs bg-black/70 text-white px-2 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition">
-                Theme
-              </span>
-            </div>
-          </div>
+          <div className="mx-1 h-full w-px shrink-0 bg-border" />
+
+          <DockButton
+            label="Toggle theme"
+            onClick={toggleTheme}
+            mouseX={mouseX}
+          >
+            <Sun className="size-full rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute size-full rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          </DockButton>
         </div>
       </nav>
 
-      {/* Mobile (sm) – Top-right glass hamburger + dropdown */}
-      <nav className="md:hidden fixed top-4 right-4 z-50">
-        {/* Hamburger Button */}
+      <nav className="fixed right-4 top-4 z-50 sm:hidden">
         <button
-          onClick={() => setIsMobileMenuOpen((v) => !v)}
+          type="button"
+          onClick={() => setIsMobileMenuOpen((value) => !value)}
           aria-label={isMobileMenuOpen ? 'Close navigation' : 'Open navigation'}
-          className={`rounded-full shadow-glow backdrop-blur-xl border border-white/20 dark:border-white/10 transition-all
-            ${isMobileMenuOpen ? 'bg-primary text-primary-foreground' : 'glass bg-white/10 dark:bg-black/20'}
-            w-12 h-12 flex items-center justify-center`}
+          className={`dock-mobile-trigger ${isMobileMenuOpen ? 'bg-primary/90 text-primary-foreground' : 'text-foreground'}`}
         >
-          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {isMobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
 
-        {/* Dropdown Glass Menu */}
-        <div
-          className={`absolute right-0 mt-3 w-60 rounded-2xl p-4
-            backdrop-blur-2xl bg-white/12 dark:bg-black/30 border border-white/20 dark:border-white/10
-            shadow-xl transition-all duration-300 ${
-              isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
-            }`}
-        >
-          <div className="flex flex-col space-y-3">
-            {/* Sections */}
+        <div className={`dock-mobile-panel ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0 pointer-events-none'}`}>
+          <div className="grid gap-2">
+            <button
+              type="button"
+              onClick={() => scrollToSection('hero')}
+              className={`dock-mobile-row ${activeSection === 'hero' ? 'dock-mobile-row-active' : ''}`}
+            >
+              <span className="flex size-5 items-center justify-center text-xs font-bold">T</span>
+              <span>Home</span>
+            </button>
+
             {navigationItems.map((item) => {
-              const Active = activeSection === item.id;
+              const ActiveIcon = item.icon;
+              const isActive = activeSection === item.id;
+
               return (
                 <button
                   key={item.id}
+                  type="button"
                   onClick={() => scrollToSection(item.id)}
-                  className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-all border ${
-                    Active
-                      ? 'bg-primary text-primary-foreground border-transparent shadow-glow'
-                      : 'glass border-white/10 hover:bg-white/10'
-                  }`}
+                  className={`dock-mobile-row ${isActive ? 'dock-mobile-row-active' : ''}`}
                 >
-                  <item.icon className="h-5 w-5" />
-                  <span className="text-sm">{item.label}</span>
+                  <ActiveIcon className="size-5" />
+                  <span>{item.label}</span>
                 </button>
               );
             })}
 
-            <div className="h-px w-full bg-white/20 my-2" />
+            <div className="my-1 h-px bg-border" />
 
-            {/* External links */}
-            {externalItems.map((item, i) => (
-              <button
-                key={i}
-                onClick={() => window.open(item.href, '_blank')}
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg glass hover:bg-white/10 border border-white/10 transition-all"
-              >
-                <item.icon className="h-5 w-5" />
-                <span className="text-sm">{item.label}</span>
-              </button>
-            ))}
+            {externalItems.map((item) => {
+              const ExternalIcon = item.icon;
 
-            <div className="h-px w-full bg-white/20 my-2" />
+              return (
+                <button key={item.label} type="button" onClick={() => openExternal(item.href)} className="dock-mobile-row">
+                  <ExternalIcon className="size-5" />
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
 
-            {/* Theme toggle row */}
-            <div className="flex items-center space-x-3 px-3 py-2 rounded-lg glass border border-white/10">
-              <ThemeToggle />
-              <span className="text-sm">Theme</span>
-            </div>
+            <div className="my-1 h-px bg-border" />
+
+            <button type="button" onClick={toggleTheme} className="dock-mobile-row">
+              <span className="relative flex size-5 items-center justify-center">
+                <Sun className="size-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute size-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              </span>
+              <span>Theme</span>
+            </button>
           </div>
         </div>
       </nav>

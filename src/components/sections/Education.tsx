@@ -5,8 +5,6 @@ import { Reveal } from '@/components/Reveal';
 export function Education() {
   return (
     <section id="education" className="py-16 relative">
-      <div className="absolute inset-0 grid-bg opacity-10" />
-      
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-3xl mx-auto">
           <Reveal effect="fade-up">
@@ -15,7 +13,7 @@ export function Education() {
             </h2>
           </Reveal>
           
-          <Reveal effect="fade-up" delay={100}>
+          <Reveal effect="fade-up" delay={70}>
           <Card className="p-8 gradient-card border-primary/10 card-hover">
             <div className="flex items-start space-x-4">
               <div className="flex-shrink-0">
@@ -35,7 +33,7 @@ export function Education() {
                 <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-6 mb-4">
                   <div className="flex items-center text-muted-foreground">
                     <Calendar className="h-4 w-4 mr-2" />
-                    Expected 2026
+                    Graduated June 2026
                   </div>
                   <div className="flex items-center text-muted-foreground">
                     <MapPin className="h-4 w-4 mr-2" />

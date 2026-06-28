@@ -1,13 +1,11 @@
-import { Button } from '@/components/ui/button';
-import headshotImage from '@/assets/headshot.jpg';
 import { TechStack } from '@/components/TechStack';
 import { Reveal } from '@/components/Reveal';
 
 export function About() {
   return (
     <section id="about" className="py-24 relative">
-      <div className="absolute inset-0 grid-bg opacity-20" />
-      
+      <div className="about-section-grid pointer-events-none absolute inset-0 z-0" />
+      <div className="about-section-grain-field pointer-events-none absolute left-1/2 top-[34%] z-0 h-[38rem] w-[min(96vw,70rem)] -translate-x-1/2 -translate-y-1/2" />
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
           <Reveal effect="fade-up">
@@ -16,27 +14,14 @@ export function About() {
             </h2>
           </Reveal>
           
-          <div className="grid md:grid-cols-3 gap-8 items-start mb-16">
-            <div className="md:col-span-1 text-center">
-              <Reveal effect="zoom">
-                <div className="relative inline-block mb-6">
-                  <div className="absolute inset-0 rounded-full bg-gradient-primary opacity-20 -z-10" />
-                  <img
-                    src={headshotImage}
-                    alt="Taha Hashim"
-                    className="w-48 h-48 rounded-full object-cover shadow-glow mx-auto relative z-10"
-                  />
-                </div>
-              </Reveal>
-            </div>
-            
-            <div className="md:col-span-2 space-y-6">
-              <Reveal effect="fade-up" cascade cascadeDelay={100}>
+          <div className="mb-16 text-center">
+            <div className="relative isolate mx-auto max-w-2xl space-y-6">
+              <Reveal effect="fade-up" cascade cascadeDelay={58} className="space-y-6">
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  I’m Taha Hashim, a Computer Science & Math student at the University of Toronto focused on software engineering.
+                  I’m Taha Hashim, a Software Development Engineer at AWS with a Computer Science & Math background from the University of Toronto.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  At AWS, I contributed to large-scale monitoring systems that impacted millions of customers, and at Acadia University I developed a platform that streamlined workflows for hundreds of users.
+                  I started my full-time SDE role at AWS in June 2026 after previously contributing to large-scale monitoring systems there as an intern. At Acadia University, I developed a platform that streamlined workflows for hundreds of users.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   I’m driven by building reliable systems and creating simple, effective user experiences.
@@ -47,7 +32,7 @@ export function About() {
             </div>
           </div>
 
-          <Reveal effect="fade-up" delay={80}>
+          <Reveal effect="fade-up" delay={60}>
             <TechStack />
           </Reveal>
         </div>

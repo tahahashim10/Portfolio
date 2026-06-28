@@ -4,6 +4,15 @@ import { Reveal } from '@/components/Reveal';
 
 const experiences = [
   {
+    title: 'Software Development Engineer',
+    company: 'Amazon Web Services',
+    location: 'Vancouver, BC',
+    period: 'Jun 2026 – Present',
+    description:
+      'Building DNS and networking infrastructure for Amazon S3.',
+    technologies: ['AWS', 'Python', 'TypeScript', 'Java', 'Kotlin'],
+  },
+  {
     title: 'Teaching Assistant',
     company: 'University of Toronto',
     location: 'Toronto, ON',
@@ -63,6 +72,7 @@ export function Experience() {
   return (
     <section id="experience" className="py-24 relative">
       <div className="absolute inset-0 bg-gradient-hero" />
+      <div className="experience-end-grid pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[44%]" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
@@ -76,7 +86,7 @@ export function Experience() {
 
             <div className="space-y-12">
               {experiences.map((exp, index) => (
-                <Reveal key={`${exp.company}-${exp.period}`} effect="fade-up" delay={index * 100}>
+                <Reveal key={`${exp.company}-${exp.period}`} effect="fade-up" delay={index * 64}>
                 <div className="relative">
                   {/* Timeline Dot */}
                   <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary rounded-full shadow-glow z-10" />

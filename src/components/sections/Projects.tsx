@@ -9,7 +9,7 @@ import convoImage from '@/assets/convo-ai.jpg';
 import escapeImage from '@/assets/escape-room.jpg';
 import flyNextImage from '@/assets/fly-next.jpg';
 import groceryImage from '@/assets/grocery-commerce.jpg';
-import smileImage from '@/assets/smile-app.jpg';
+import smileImage from '@/assets/smile-app.png';
 import unixImage from '@/assets/unix-shell.jpg';
 
 const MAX_TECH_CHIPS = 4;
@@ -122,9 +122,9 @@ export function Projects() {
             {/* Featured Projects - Larger Cards (FlyNext, SMILE) */}
             <div className="grid md:grid-cols-2 gap-8">
               {projects.filter(p => p.featured).map((project, i) => (
-                <Reveal key={project.title} effect="fade-up" delay={i * 120}>
+                <Reveal key={project.title} effect="fade-up" delay={i * 72} className="h-full">
                 <Card
-                  className="overflow-hidden gradient-card border-primary/10 card-hover group relative project-card"
+                  className="flex h-full flex-col overflow-hidden gradient-card border-primary/10 card-hover group relative project-card"
                   onMouseMove={handleCardMouseMove}
                   onMouseEnter={handleCardEnter}
                   onMouseLeave={handleCardLeave}
@@ -139,7 +139,7 @@ export function Projects() {
                     <div className="pointer-events-none absolute inset-0 card-spotlight" />
                     <div className="pointer-events-none card-cursor" />
                   </div>
-                  <div className="p-6">
+                  <div className="flex flex-1 flex-col p-6">
                     <h3 className="text-2xl font-semibold mb-3 text-primary">
                       {project.title}
                     </h3>
@@ -164,7 +164,7 @@ export function Projects() {
                       )}
                     </div>
                     
-                    <div className="flex flex-wrap gap-3">
+                    <div className="mt-auto flex flex-wrap gap-3">
                       {project.liveUrl && (
                         <Button
                           size="sm"
@@ -208,9 +208,9 @@ export function Projects() {
             {/* Other Projects - Smaller Cards (Grocery, Unix Shell, Escape Room, Convo AI) */}
             <div className="grid md:grid-cols-2 gap-6">
               {projects.filter(p => !p.featured).map((project, i) => (
-                <Reveal key={project.title} effect="fade-up" delay={i * 80}>
+                <Reveal key={project.title} effect="fade-up" delay={i * 56} className="h-full">
                 <Card
-                  className="overflow-hidden gradient-card border-primary/10 card-hover group relative project-card"
+                  className="flex h-full flex-col overflow-hidden gradient-card border-primary/10 card-hover group relative project-card"
                   onMouseMove={handleCardMouseMove}
                   onMouseEnter={handleCardEnter}
                   onMouseLeave={handleCardLeave}
@@ -225,7 +225,7 @@ export function Projects() {
                     <div className="pointer-events-none absolute inset-0 card-spotlight" />
                     <div className="pointer-events-none card-cursor" />
                   </div>
-                  <div className="p-5">
+                  <div className="flex flex-1 flex-col p-5">
                     <h3 className="text-xl font-semibold mb-2 text-primary">
                       {project.title}
                     </h3>
@@ -250,7 +250,7 @@ export function Projects() {
                       )}
                     </div>
                     
-                    <div className="flex flex-wrap gap-3">
+                    <div className="mt-auto flex flex-wrap gap-3">
                       {project.liveUrl && (
                         <Button
                           size="sm"

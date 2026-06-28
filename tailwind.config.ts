@@ -19,8 +19,12 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'space-grotesk': ['Space Grotesk', 'sans-serif'],
-				'inter': ['Inter', 'sans-serif'],
+				sans: ['Be Vietnam Pro', 'sans-serif'],
+				'be-vietnam': ['Be Vietnam Pro', 'sans-serif'],
+				'space-grotesk': ['Be Vietnam Pro', 'sans-serif'],
+				'inter': ['Be Vietnam Pro', 'sans-serif'],
+				mono: ['JetBrains Mono', 'monospace'],
+				'caveat': ['Caveat', 'cursive'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
